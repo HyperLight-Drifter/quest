@@ -1,0 +1,28 @@
+{
+  "id": "quest",
+  "title": "Quest",
+  "description": "An unofficial Foundry VTT system for Quest: The Adventure Game by T. C. Sottek.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "authors": [{ "name": "starec" }],
+  "esmodules": ["scripts/quest.js"],
+  "styles": ["styles/quest.css"],
+  "documentTypes": {
+    "Actor": {
+      "character": {},
+      "npc": {}
+    },
+    "Item": {
+      "ability": {},
+      "item": {}
+    }
+  },
+  "packs": [],
+  "languages": [{ "lang": "en", "name": "English", "path": "lang/en.json" }],
+  "url": "",
+  "manifest": "",
+  "download": ""
+}

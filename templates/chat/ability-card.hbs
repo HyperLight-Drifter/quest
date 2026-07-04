@@ -1,0 +1,11 @@
+<div class="quest-ability-card">
+  <div class="ability-card-name">{{name}}</div>
+  <div class="ability-card-description">{{{renderedDescription}}}</div>
+  {{#if tierList.length}}
+  <ul class="tier-list">
+    {{#each tierList as |tier|}}
+    <li><strong>{{tier.label}}:</strong> {{tier.text}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>

@@ -1,0 +1,6 @@
+{
+  "TYPES.Actor.character": "Character",
+  "TYPES.Actor.npc": "NPC",
+  "TYPES.Item.ability": "Ability",
+  "TYPES.Item.item": "Item"
+}

@@ -1,0 +1,206 @@
+<div class="quest-character-sheet quest-npc-sheet" autocomplete="off">
+
+  <div class="sheet-header">
+
+    <div class="portrait-wrap {{#if actor.img}}{{#unless isDefaultImage}}no-frame{{/unless}}{{/if}}">
+      <img class="portrait" src="{{actor.img}}" data-action="editImage" alt="{{actor.name}}">
+    </div>
+
+    <div class="header-main">
+      <label class="name-label">Name</label>
+      <input class="name-input" type="text" name="name" value="{{actor.name}}">
+
+      <div class="stat-row">
+        <div class="stat-block hp-block">
+          <label class="stat-label">HP</label>
+          <input class="stat-input" type="number" name="system.hp.value" value="{{system.hp.value}}" min="0">
+          <span class="stat-sep">/</span>
+          <input class="stat-input" type="number" name="system.hp.max" value="{{system.hp.max}}">
+        </div>
+
+        <div class="stat-block att-block">
+          <label class="stat-label">ATT</label>
+          <input class="stat-input" type="number" name="system.att" value="{{system.att}}" min="0">
+        </div>
+
+        <div class="stat-block armor-block">
+          <label class="stat-label">Armor</label>
+          <input class="stat-input" type="number" name="system.armor" value="{{system.armor}}" min="0">
+        </div>
+
+        <button type="button" class="roll-button" data-action="roll">
+          <img src="icons/svg/d20-black.svg" alt="Roll">
+        </button>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-block type-block">
+          <label class="stat-label">Type</label>
+          <select class="type-select" name="system.npcType">
+            <option value="commoner" {{#if (eq system.npcType "commoner")}}selected{{/if}}>Commoner</option>
+            <option value="minion" {{#if (eq system.npcType "minion")}}selected{{/if}}>Minion</option>
+            <option value="boss" {{#if (eq system.npcType "boss")}}selected{{/if}}>Boss</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="sheet-tabs">
+    {{#each tabs as |tab|}}
+      <a class="tab-button {{tab.cssClass}}" data-action="selectTab" data-tab="{{tab.id}}">{{tab.label}}</a>
+    {{/each}}
+  </nav>
+
+  <section class="sheet-body">
+
+    {{#if tabs.description.active}}
+    <div class="description-tab">
+      <div class="abilities-toolbar">
+        <a class="add-ability" data-action="createAbility">+</a>
+        <div class="fold-controls">
+          <a class="fold-button" data-action="expandAll" title="Expand All">▼</a>
+          <a class="fold-button" data-action="collapseAll" title="Collapse All">▶</a>
+        </div>
+      </div>
+
+      <ol class="abilities-list">
+        {{#each abilities as |ability|}}
+        <li class="ability-item" data-item-id="{{ability.id}}" draggable="true">
+          <div class="ability-row" data-action="toggleAbility" data-item-id="{{ability.id}}">
+            <span class="ability-toggle">{{#if ability.expanded}}▼{{else}}▶{{/if}}</span>
+            <span class="ability-name">{{ability.name}}</span>
+            <a class="ability-edit" data-action="editItem" data-item-id="{{ability.id}}">✎</a>
+            <a class="ability-remove" data-action="removeAbility" data-item-id="{{ability.id}}">×</a>
+          </div>
+          {{#if ability.expanded}}
+          <div class="ability-detail">
+            {{#if ability.system.hasRoll}}
+            <a class="ability-roll" data-action="rollAbility" data-item-id="{{ability.id}}">Roll the Die</a>
+            {{/if}}
+            <div class="ability-description">{{{ability.renderedDescription}}}</div>
+            {{#if ability.system.hasRoll}}
+            <ul class="tier-list">
+              {{#each ability.tierList as |tier|}}
+              <li><strong>{{tier.label}}:</strong> {{tier.text}}</li>
+              {{/each}}
+            </ul>
+            {{/if}}
+          </div>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ol>
+
+      <label class="section-label">Description</label>
+      <prose-mirror name="system.description" button="true" editable="{{editable}}" toggled="false" value="{{system.description}}">{{{enrichedDescription}}}</prose-mirror>
+    </div>
+    {{/if}}
+
+    {{#if tabs.inventory.active}}
+    <div class="inventory-tab">
+
+      <div class="inventory-section" data-container-id="main">
+        <div class="inventory-header">
+          <label class="slots-label">Slots</label>
+          <input type="number" class="slots-input" name="system.inventorySlots" value="{{mainInventory.slotCount}}" min="0">
+          <a class="add-ability inline-add" data-action="createItemInSlot" data-container-id="main">+</a>
+          <a class="add-container" data-action="addContainer">Add Container</a>
+        </div>
+
+        <ol class="abilities-list">
+          {{#each mainInventory.slots as |slot|}}
+          <li class="ability-item item-slot">
+            {{#if slot.filled}}
+            <div class="ability-row" data-action="toggleItem" data-item-id="{{slot.id}}">
+              <span class="slot-number">{{slot.slotNumber}}.</span>
+              <span class="ability-toggle">{{#if slot.expanded}}▼{{else}}▶{{/if}}</span>
+              <span class="ability-name">{{slot.name}}</span>
+              <a class="ability-edit" data-action="editItem" data-item-id="{{slot.id}}">✎</a>
+              <a class="ability-remove" data-action="removeItem" data-item-id="{{slot.id}}">×</a>
+            </div>
+            {{#if slot.expanded}}
+            <div class="ability-detail">
+              {{#if slot.system.hasRoll}}
+              <a class="ability-roll" data-action="rollItem" data-item-id="{{slot.id}}">Roll the Die</a>
+              {{/if}}
+              <div class="ability-description">{{{slot.renderedDescription}}}</div>
+              {{#if slot.system.hasRoll}}
+              <ul class="tier-list">
+                {{#each slot.tierList as |tier|}}
+                <li><strong>{{tier.label}}:</strong> {{tier.text}}</li>
+                {{/each}}
+              </ul>
+              {{/if}}
+            </div>
+            {{/if}}
+            {{else}}
+            <div class="empty-slot"><span class="slot-number">{{slot.slotNumber}}.</span></div>
+            {{/if}}
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+
+      {{#each containers as |container|}}
+      <div class="inventory-section" data-container-id="{{container.id}}">
+        <div class="inventory-header container-header">
+          <div class="container-header-left">
+            <input type="text" class="container-name-input" name="containerName-{{container.id}}" value="{{container.name}}" data-container-id="{{container.id}}">
+            <div class="container-slots-row">
+              <label class="slots-label">Slots</label>
+              <input type="number" class="slots-input container-slots-input" value="{{container.slotCount}}" min="0" data-container-id="{{container.id}}">
+              <a class="add-ability inline-add" data-action="createItemInSlot" data-container-id="{{container.id}}">+</a>
+            </div>
+          </div>
+          <a class="remove-container" data-action="removeContainer" data-container-id="{{container.id}}">Remove Container</a>
+        </div>
+
+        <ol class="abilities-list">
+          {{#each container.slots as |slot|}}
+          <li class="ability-item item-slot">
+            {{#if slot.filled}}
+            <div class="ability-row" data-action="toggleItem" data-item-id="{{slot.id}}">
+              <span class="slot-number">{{slot.slotNumber}}.</span>
+              <span class="ability-toggle">{{#if slot.expanded}}▼{{else}}▶{{/if}}</span>
+              <span class="ability-name">{{slot.name}}</span>
+              <a class="ability-edit" data-action="editItem" data-item-id="{{slot.id}}">✎</a>
+              <a class="ability-remove" data-action="removeItem" data-item-id="{{slot.id}}">×</a>
+            </div>
+            {{#if slot.expanded}}
+            <div class="ability-detail">
+              {{#if slot.system.hasRoll}}
+              <a class="ability-roll" data-action="rollItem" data-item-id="{{slot.id}}">Roll the Die</a>
+              {{/if}}
+              <div class="ability-description">{{{slot.renderedDescription}}}</div>
+              {{#if slot.system.hasRoll}}
+              <ul class="tier-list">
+                {{#each slot.tierList as |tier|}}
+                <li><strong>{{tier.label}}:</strong> {{tier.text}}</li>
+                {{/each}}
+              </ul>
+              {{/if}}
+            </div>
+            {{/if}}
+            {{else}}
+            <div class="empty-slot"><span class="slot-number">{{slot.slotNumber}}.</span></div>
+            {{/if}}
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+      {{/each}}
+
+    </div>
+    {{/if}}
+
+    {{#if tabs.notes.active}}
+    <div class="notes-tab">
+      <prose-mirror name="system.notes" button="true" editable="{{editable}}" toggled="false" value="{{system.notes}}">{{{enrichedNotes}}}</prose-mirror>
+    </div>
+    {{/if}}
+
+  </section>
+
+</div>

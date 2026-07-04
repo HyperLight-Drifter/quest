@@ -1,0 +1,44 @@
+<div class="quest-ability-sheet" autocomplete="off">
+
+  <div class="ability-field">
+    <label class="name-label">Name</label>
+    <input class="name-input" type="text" name="name" value="{{item.name}}">
+  </div>
+
+  <div class="ability-field">
+    <label class="name-label">Learning Path</label>
+    <input class="name-input" type="text" name="system.learningPath" value="{{system.learningPath}}">
+  </div>
+
+  <div class="ability-field">
+    <label class="name-label">Path Order</label>
+    <input class="name-input" type="number" min="0" name="system.pathOrder" value="{{system.pathOrder}}">
+  </div>
+
+  <div class="ability-description">
+    <label class="description-label">Description</label>
+    <textarea class="description-input auto-resize" name="system.description">{{system.description}}</textarea>
+  </div>
+  
+  <a class="roll-toggle-row {{#if system.hasRoll}}checked{{/if}}" data-action="toggleRoll">
+    <span class="roll-checkmark"></span>
+    <span class="roll-toggle-button">Roll the Die</span>
+  </a>
+
+  {{#if system.hasRoll}}
+  <div class="roll-tiers">
+    {{#each system.rollTiers as |tier index|}}
+    <div class="tier-row">
+      <div class="tier-range">
+        <input type="number" class="tier-range-input" name="system.rollTiers.{{index}}.min" value="{{tier.min}}">
+        <span>–</span>
+        <input type="number" class="tier-range-input" name="system.rollTiers.{{index}}.max" value="{{tier.max}}">
+        <a class="tier-remove" data-action="removeTier" data-index="{{index}}">×</a>      </div>
+      <textarea class="tier-input auto-resize" name="system.rollTiers.{{index}}.text">{{tier.text}}</textarea>
+    </div>
+    {{/each}}
+    <a class="tier-add" data-action="addTier">+ Add Range</a>
+  </div>
+  {{/if}}
+
+</div>

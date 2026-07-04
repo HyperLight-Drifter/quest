@@ -1,0 +1,241 @@
+<div class="quest-character-sheet" autocomplete="off">
+
+  <div class="sheet-header">
+
+    <div class="portrait-wrap {{#if actor.img}}{{#unless isDefaultImage}}no-frame{{/unless}}{{/if}}">
+      <img class="portrait" src="{{actor.img}}" data-action="editImage" alt="{{actor.name}}">
+    </div>
+
+    <div class="header-main">
+      <label class="name-label">Name</label>
+      <input class="name-input" type="text" name="name" value="{{actor.name}}">
+
+      <div class="stat-row">
+        <div class="stat-block hp-block">
+          <label class="stat-label">HP</label>
+          <input class="stat-input" type="number" name="system.hp.value" value="{{system.hp.value}}" min="0">
+          <span class="stat-sep">/</span>
+          <input class="stat-input" type="number" name="system.hp.max" value="{{system.hp.max}}">
+        </div>
+
+        <div class="stat-block ap-block">
+          <label class="stat-label">AP</label>
+          <input class="stat-input" type="number" name="system.ap" value="{{system.ap}}" min="0">
+        </div>
+
+        <div class="stat-block armor-block">
+          <label class="stat-label">Armor</label>
+          <input class="stat-input" type="number" name="system.armor" value="{{system.armor}}" min="0">
+        </div>
+
+        <button type="button" class="roll-button" data-action="roll">
+          <img src="icons/svg/d20-black.svg" alt="Roll">
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="sheet-tabs">
+    {{#each tabs as |tab|}}
+      <a class="tab-button {{tab.cssClass}}" data-action="selectTab" data-tab="{{tab.id}}">{{tab.label}}</a>
+    {{/each}}
+  </nav>
+
+  <section class="sheet-body">
+
+    {{#if tabs.abilities.active}}
+    <div class="abilities-tab">
+      <div class="abilities-toolbar">
+        <a class="add-ability" data-action="createAbility">+</a>
+        <div class="fold-controls">
+          <a class="fold-button" data-action="expandAll" title="Expand All">▼</a>
+          <a class="fold-button" data-action="collapseAll" title="Collapse All">▶</a>
+        </div>
+      </div>
+      {{#each abilityPaths as |group|}}
+      <h3 class="path-label">{{group.pathName}}</h3>
+      <ol class="abilities-list">
+        {{#each group.abilities as |ability|}}
+        <li class="ability-item" data-item-id="{{ability.id}}" draggable="true">
+          <div class="ability-row" data-action="toggleAbility" data-item-id="{{ability.id}}">
+            <span class="ability-toggle">{{#if ability.expanded}}▼{{else}}▶{{/if}}</span>
+            <span class="ability-name">{{ability.name}}</span>
+            <a class="ability-edit" data-action="editItem" data-item-id="{{ability.id}}">✎</a>
+            <a class="ability-remove" data-action="removeAbility" data-item-id="{{ability.id}}">×</a>
+          </div>
+          {{#if ability.expanded}}
+          <div class="ability-detail">
+            {{#if ability.system.hasRoll}}
+            <a class="ability-roll" data-action="rollAbility" data-item-id="{{ability.id}}">Roll the Die</a>
+            {{/if}}
+            <div class="ability-description">{{{ability.renderedDescription}}}</div>
+            {{#if ability.system.hasRoll}}
+            <ul class="tier-list">
+              {{#each ability.tierList as |tier|}}
+              <li><strong>{{tier.label}}:</strong> {{tier.text}}</li>
+              {{/each}}
+            </ul>
+            {{/if}}
+          </div>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ol>
+      {{/each}}
+      </div>
+      {{/if}}
+
+    {{#if tabs.profile.active}}
+    <div class="profile-tab">
+      <p>Hello,</p>
+
+      <p>
+        My name is {{actor.name}}
+        (<input type="text" class="profile-input" name="system.profilePronouns" value="{{system.profilePronouns}}" placeholder="pronouns">).
+      </p>
+
+      <p>
+        I'm <input type="text" class="profile-input profile-input-short" name="system.profileAge" value="{{system.profileAge}}" placeholder="age">
+        years old and stand <input type="text" class="profile-input" name="system.profileHeight" value="{{system.profileHeight}}" placeholder="height"> tall.
+      </p>
+
+      <p>
+        I'm the party's <input type="text" class="profile-input" name="system.profileRole" value="{{system.profileRole}}" placeholder="role">.
+      </p>
+
+      <p>
+        When people see me, they first notice my
+        <input type="text" class="profile-input" name="system.profileFeature1" value="{{system.profileFeature1}}" placeholder="distinctive feature">,
+        <input type="text" class="profile-input" name="system.profileFeature2" value="{{system.profileFeature2}}" placeholder="distinctive feature">,
+        and <input type="text" class="profile-input" name="system.profileFeature3" value="{{system.profileFeature3}}" placeholder="distinctive feature">.
+      </p>
+
+      <p>
+        I wear <input type="text" class="profile-input" name="system.profileStyle1" value="{{system.profileStyle1}}" placeholder="style">,
+        <input type="text" class="profile-input" name="system.profileStyle2" value="{{system.profileStyle2}}" placeholder="style">,
+        and move with <input type="text" class="profile-input" name="system.profileStyle3" value="{{system.profileStyle3}}" placeholder="style">.
+      </p>
+
+      <p>
+        I'm from <input type="text" class="profile-input" name="system.profileHome" value="{{system.profileHome}}" placeholder="home">,
+        where my people are known for <input type="text" class="profile-input" name="system.profileCommunity" value="{{system.profileCommunity}}" placeholder="community">.
+      </p>
+
+      <p>
+        I believe in <input type="text" class="profile-input" name="system.profileIdeal" value="{{system.profileIdeal}}" placeholder="ideal">,
+        but my <input type="text" class="profile-input" name="system.profileFlaw" value="{{system.profileFlaw}}" placeholder="flaw"> side can get in my way.
+      </p>
+
+      <p>
+        I dream of <input type="text" class="profile-input profile-input-long" name="system.profileDream" value="{{system.profileDream}}" placeholder="dream">.
+      </p>
+
+    </div>
+    {{/if}}
+
+    {{#if tabs.inventory.active}}
+    <div class="inventory-tab">
+
+      <div class="inventory-section" data-container-id="main">
+        <div class="inventory-header">
+          <label class="slots-label">Slots</label>
+          <input type="number" class="slots-input" name="system.inventorySlots" value="{{mainInventory.slotCount}}" min="0">
+          <a class="add-ability inline-add" data-action="createItemInSlot" data-container-id="main">+</a>
+          <a class="add-container" data-action="addContainer">Add Container</a>
+        </div>
+
+        <ol class="abilities-list">
+          {{#each mainInventory.slots as |slot|}}
+          <li class="ability-item item-slot">
+            {{#if slot.filled}}
+            <div class="ability-row" data-action="toggleItem" data-item-id="{{slot.id}}">
+              <span class="slot-number">{{slot.slotNumber}}.</span>
+              <span class="ability-toggle">{{#if slot.expanded}}▼{{else}}▶{{/if}}</span>
+              <span class="ability-name">{{slot.name}}</span>
+              <a class="ability-edit" data-action="editItem" data-item-id="{{slot.id}}">✎</a>
+              <a class="ability-remove" data-action="removeItem" data-item-id="{{slot.id}}">×</a>
+            </div>
+            {{#if slot.expanded}}
+            <div class="ability-detail">
+              {{#if slot.system.hasRoll}}
+              <a class="ability-roll" data-action="rollItem" data-item-id="{{slot.id}}">Roll the Die</a>
+              {{/if}}
+              <div class="ability-description">{{{slot.renderedDescription}}}</div>
+              {{#if slot.system.hasRoll}}
+              <ul class="tier-list">
+                {{#each slot.tierList as |tier|}}
+                <li><strong>{{tier.label}}:</strong> {{tier.text}}</li>
+                {{/each}}
+              </ul>
+              {{/if}}
+            </div>
+            {{/if}}
+            {{else}}
+            <div class="empty-slot"><span class="slot-number">{{slot.slotNumber}}.</span></div>
+            {{/if}}
+          </li>
+          {{/each}}
+        </ol>        
+      </div>
+
+      {{#each containers as |container|}}
+      <div class="inventory-section" data-container-id="{{container.id}}">
+        <div class="inventory-header container-header">
+          <div class="container-header-left">
+            <input type="text" class="container-name-input" name="containerName-{{container.id}}" value="{{container.name}}" data-container-id="{{container.id}}">
+            <div class="container-slots-row">
+              <label class="slots-label">Slots</label>
+              <input type="number" class="slots-input container-slots-input" value="{{container.slotCount}}" min="0" data-container-id="{{container.id}}">
+              <a class="add-ability inline-add" data-action="createItemInSlot" data-container-id="{{container.id}}">+</a>
+            </div>
+          </div>
+          <a class="remove-container" data-action="removeContainer" data-container-id="{{container.id}}">Remove Container</a>
+        </div>
+
+        <ol class="abilities-list">
+          {{#each container.slots as |slot|}}
+          <li class="ability-item item-slot">
+            {{#if slot.filled}}
+            <div class="ability-row" data-action="toggleItem" data-item-id="{{slot.id}}">
+              <span class="slot-number">{{slot.slotNumber}}.</span>
+              <span class="ability-toggle">{{#if slot.expanded}}▼{{else}}▶{{/if}}</span>
+              <span class="ability-name">{{slot.name}}</span>
+              <a class="ability-edit" data-action="editItem" data-item-id="{{slot.id}}">✎</a>
+              <a class="ability-remove" data-action="removeItem" data-item-id="{{slot.id}}">×</a>
+            </div>
+            {{#if slot.expanded}}
+            <div class="ability-detail">
+              {{#if slot.system.hasRoll}}
+              <a class="ability-roll" data-action="rollItem" data-item-id="{{slot.id}}">Roll the Die</a>
+              {{/if}}
+              <div class="ability-description">{{{slot.renderedDescription}}}</div>
+              {{#if slot.system.hasRoll}}
+              <ul class="tier-list">
+                {{#each slot.tierList as |tier|}}
+                <li><strong>{{tier.label}}:</strong> {{tier.text}}</li>
+                {{/each}}
+              </ul>
+              {{/if}}
+            </div>
+            {{/if}}
+            {{else}}
+            <div class="empty-slot"><span class="slot-number">{{slot.slotNumber}}.</span></div>
+            {{/if}}
+          </li>
+          {{/each}}
+        </ol>        
+      </div>
+      {{/each}}
+
+    </div>
+    {{/if}}
+
+    {{#if tabs.notes.active}}
+    <div class="notes-tab">
+      <prose-mirror name="system.notes" button="true" editable="true" toggled="false" value="{{system.notes}}">{{{enrichedNotes}}}</prose-mirror>
+    </div>
+    {{/if}}
+    </section>
+
+</div>

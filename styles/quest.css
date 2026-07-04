@@ -1,0 +1,667 @@
+@font-face {
+  font-family: "Alegreya Sans SC Black";
+  src: url("../fonts/AlegreyaSansSC-Black.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Ovo";
+  src: url("../fonts/Ovo-Regular.ttf") format("truetype");
+}
+
+.sheet-body::-webkit-scrollbar,
+.quest-ability-sheet::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sheet-body::-webkit-scrollbar-track,
+.quest-ability-sheet::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.sheet-body::-webkit-scrollbar-thumb,
+.quest-ability-sheet::-webkit-scrollbar-thumb {
+  background: #000000;
+}
+
+.sheet-body,
+.quest-ability-sheet {
+  scrollbar-width: thin;
+  scrollbar-color: #000000 #ffffff;
+}
+
+.quest-character-sheet {
+  background: #ffffff;
+  color: #000000;
+  font-family: "Ovo", serif;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 16px;
+}
+
+.quest-character-sheet input,
+.quest-character-sheet textarea,
+.quest-character-sheet select {
+  box-shadow: none;
+  border-radius: 0;
+  outline: none;
+  font-family: "Ovo", serif;
+  font-size: 16px;
+}
+
+/* ---------- Header ---------- */
+
+.sheet-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.portrait-wrap {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 2px solid #000000;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.portrait-wrap.no-frame {
+  border-color: transparent;
+}
+
+.portrait-wrap .portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.header-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.name-label {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.name-input {
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #000000;
+  padding: 2px 0;
+  width: 100%;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.stat-block {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.stat-label {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.stat-input {
+  border: none;
+  background: transparent;
+  width: 5ch;
+  text-align: center;
+}
+
+.stat-sep {
+  font-family: "Ovo", serif;
+  font-size: 16px;
+}
+
+.roll-button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+}
+
+.roll-button img {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Tabs ---------- */
+
+.sheet-tabs {
+  display: flex;
+  gap: 4px;
+  margin-top: 20px;
+  border-bottom: 2px solid #000000;
+}
+
+.tab-button {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #000000;
+  padding: 4px 14px;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  background: #000000;
+  color: #ffffff;
+  border: 2px solid #000000;
+  border-bottom: none;
+  position: relative;
+  top: 2px;
+}
+
+/* ---------- PROFILE ---------- */
+.profile-tab {
+  font-family: "Ovo", serif;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.profile-tab p {
+  margin: 0 0 10px 0;
+}
+
+.profile-input {
+  border: none;
+  border-bottom: none;
+  background: transparent;
+  font-family: "Ovo", serif;
+  font-size: 16px;
+  padding: 0;
+  color: #000;
+  width: 3ch;
+}
+
+.profile-input::placeholder {
+  color: #999;
+}
+
+.profile-input-short {
+  width: 4ch;
+}
+
+.profile-input-long {
+  width: 100%;
+  max-width: 500px;
+}
+
+/* ---------- Chat card ---------- */
+
+.quest-roll-card {
+  text-align: center;
+}
+
+.quest-roll-card .roll-number,
+.quest-roll-card .roll-tier {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.quest-roll-card .roll-commentary {
+  font-family: "Ovo", serif;
+  font-size: 14px;
+  color: #000;
+  margin-top: 4px;
+}
+
+/* ---------- Abilities (character sheet) ---------- */
+
+.abilities-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.fold-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.fold-button {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.add-ability {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.path-label {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 16px 0 8px 0;
+}
+
+.abilities-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  column-count: 2;
+  column-gap: 16px;
+}
+
+.ability-item {
+  padding: 4px 0;
+  break-inside: avoid;
+}
+
+.ability-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-family: "Alegreya Sans SC Regular", sans-serif;
+  font-size: 16px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 4px;
+}
+
+.ability-name {
+  flex: 1;
+  text-transform: uppercase;
+}
+
+.ability-edit,
+.ability-remove {
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.ability-detail {
+  font-family: "Ovo", serif;
+  font-size: 16px;
+  padding: 6px 0 6px 20px;
+}
+
+.ability-roll {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-family: "Alegreya Sans SC Regular", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.ap-badge {
+  display: inline-block;
+  min-width: 30px;
+  line-height: 16px;
+  padding: 1px 12px 1px 8px;
+  background: #000;
+  color: #fff;
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 14px;
+  text-align: center;
+  clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%);
+  margin: 0 2px;
+  vertical-align: middle;
+  cursor: pointer;
+  position: relative;
+  top: -5px;
+}
+
+.tier-list {
+  font-family: "Ovo", serif;
+  font-size: 16px;
+  margin: 6px 0;
+  padding-left: 20px;
+}
+
+.tier-list li {
+  margin-bottom: 4px;
+}
+
+.quest-ability-card {
+  text-align: left;
+}
+
+.quest-ability-card .ability-card-name {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.quest-ability-card .ability-card-description {
+  font-family: "Ovo", serif;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.quest-ability-card .tier-list {
+  font-family: "Ovo", serif;
+  font-size: 14px;
+  margin: 6px 0 0 0;
+  padding-left: 20px;
+}
+
+/* ---------- INVENTORY TAB ---------- */
+
+.inventory-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 8px 0;
+}
+
+.slots-label {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.slot-number {
+  font-family: "Ovo", serif;
+  font-size: 14px;
+  color: #666;
+  min-width: 1.5em;
+}
+
+.inline-add {
+  font-size: 20px;
+}
+
+.slots-input {
+  width: 4ch;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  font-family: "Ovo", serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+.add-container,
+.remove-container {
+  margin-left: auto;
+  font-family: "Alegreya Sans SC Regular", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.container-name {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.container-header {
+  align-items: flex-start;
+}
+
+.container-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.container-slots-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.empty-slot {
+  height: 24px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.quest-character-sheet .container-name-input {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 18px;
+  padding: 0;
+  text-transform: uppercase;
+  border: none;
+  background: transparent;
+  color: #000;
+}
+
+/* ---------- NOTES TAB ---------- */
+.notes-tab .editor-content {
+  position: relative;
+  inset: auto;
+  overflow-y: visible;
+  height: auto;
+}
+
+/* ---------- Ability item sheet ---------- */
+
+.quest-ability-sheet {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: none;
+  border-radius: 0;
+  outline: none;
+  font-family: "Ovo", serif;
+  padding: 16px;
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.quest-ability-sheet .ability-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.quest-ability-sheet .name-label {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.quest-ability-sheet .name-input {
+  font-family: "Ovo", serif;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  flex: 1;
+  padding: 4px 2px;
+}
+
+.ability-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.quest-ability-sheet .description-label {
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 14px;
+}
+
+.quest-ability-sheet .description-input,
+.quest-ability-sheet .tier-input {
+  display: block;
+  font-family: "Ovo", serif;
+  font-size: 16px;
+  border: 1px solid #000;
+  background: transparent;
+  width: 100%;
+  margin-top: 4px;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  resize: none;
+  overflow: hidden;
+  min-height: 2.4em;
+}
+
+.quest-ability-sheet .description-input {
+  min-height: 6em;
+}
+
+/* Roll the Die toggle: circular check indicator + solid black/white pill */
+
+.quest-ability-sheet .roll-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin-top: 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.quest-ability-sheet .roll-checkmark {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.quest-ability-sheet .roll-toggle-row.checked .roll-checkmark::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #000;
+}
+
+.quest-ability-sheet .roll-toggle-button {
+  display: inline-block;
+  font-family: "Alegreya Sans SC Regular", sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+  padding: 4px 16px;
+}
+
+.quest-ability-sheet .roll-toggle-row.checked .roll-toggle-button {
+  background: #000;
+  color: #fff;
+}
+
+.quest-ability-sheet .tier-label {
+  font-family: "Alegreya Sans SC Regular", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 10px;
+}
+
+.quest-ability-sheet .roll-tiers {
+  margin-top: 6px;
+}
+
+.tier-row {
+  margin-top: 10px;
+}
+
+.tier-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Ovo", serif;
+  font-size: 16px;
+}
+
+.tier-range-input {
+  width: 4ch;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  font-family: "Ovo", serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+.tier-remove {
+  cursor: pointer;
+  font-weight: 900;
+  margin-left: 6px;
+}
+
+.tier-add {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* ITEMS */
+
+.damage-badge {
+  display: inline-block;
+  min-width: 24px;
+  padding: 1px 6px;
+  border: 2px solid #b00000;
+  color: #b00000;
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 14px;
+  text-align: center;
+  margin: 0 2px;
+  vertical-align: middle;
+}
+
+/* NPC */
+.type-select {
+  border: 1px solid #000;
+  background: transparent;
+  font-family: "Ovo", serif;
+  font-size: 16px;
+  padding: 2px 6px;
+}
+
+.section-label {
+  display: block;
+  font-family: "Alegreya Sans SC Black", sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 16px 0 4px 0;
+}
