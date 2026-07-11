@@ -22,7 +22,7 @@
   },
   "packs": [],
   "languages": [{ "lang": "en", "name": "English", "path": "lang/en.json" }],
-  "url": "https://github.com/HyperLight-Drifter/quest",
+  "url": "https://github.com/HyperLight-Drifter/quest-adventure-game",
   "manifest": "https://raw.githubusercontent.com/HyperLight-Drifter/quest/main/system.json",
   "download": "https://github.com/HyperLight-Drifter/quest/archive/refs/heads/main.zip"
 }
