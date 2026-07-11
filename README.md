@@ -1,6 +1,7 @@
 # Quest the Adventure Game
 
-An unofficial Foundry Virtual Tabletop system for **Quest: The Adventure Game** by **The Adventure Guild**. You can visit the game's official website here: https://www.adventure.game/
+An unofficial Foundry Virtual Tabletop system for **Quest: The Adventure Game** by **The Adventure Guild**. 
+
 
 AI usage: Claude AI was involved in creation of the system.
 
