@@ -9,7 +9,7 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
 ) {
   static DEFAULT_OPTIONS = {
     tag: "form",
-    classes: ["quest", "sheet", "actor", "npc", "themed", "theme-light"],
+    classes: ["quest-adventure-game", "sheet", "actor", "npc", "themed", "theme-light"],
     position: {
       width: 600,
       height: 700
@@ -42,7 +42,7 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
 
   static PARTS = {
     header: {
-      template: "systems/quest/templates/actor/npc-sheet.hbs",
+      template: "systems/quest-adventure-game/templates/actor/npc-sheet.hbs",
       scrollable: [".sheet-body"]
     }
   };
@@ -154,7 +154,7 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
     if (item.type === "ability") {
       const sourceUuid = item.uuid;
       const alreadyExists = this.actor.items.some(
-        i => i.type === "ability" && i.getFlag("quest", "sourceUuid") === sourceUuid
+        i => i.type === "ability" && i.getFlag("quest-adventure-game", "sourceUuid") === sourceUuid
       );
       if (alreadyExists) {
         ui.notifications.warn("This ability is already on the sheet.");
@@ -162,7 +162,7 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
       }
 
       const itemData = item.toObject();
-      foundry.utils.setProperty(itemData, "flags.quest.sourceUuid", sourceUuid);
+      foundry.utils.setProperty(itemData, "flags.quest-adventure-game-adventure-game-adventure-game-adventure-game.sourceUuid", sourceUuid);
       await this.actor.createEmbeddedDocuments("Item", [itemData]);
       return;
     }
@@ -178,8 +178,8 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
       const gearItems = this.actor.items.filter(i => i.type === "item");
       const occupied = new Set(
         gearItems
-          .filter(it => (it.getFlag("quest", "containerId") ?? "main") === containerId)
-          .map(it => it.getFlag("quest", "slotIndex"))
+          .filter(it => (it.getFlag("quest-adventure-game", "containerId") ?? "main") === containerId)
+          .map(it => it.getFlag("quest-adventure-game", "slotIndex"))
       );
 
       let freeIndex = -1;
@@ -196,8 +196,8 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
       }
 
       const itemData = item.toObject();
-      foundry.utils.setProperty(itemData, "flags.quest.containerId", containerId);
-      foundry.utils.setProperty(itemData, "flags.quest.slotIndex", freeIndex);
+      foundry.utils.setProperty(itemData, "flags.quest-adventure-game-adventure-game-adventure-game-adventure-game.containerId", containerId);
+      foundry.utils.setProperty(itemData, "flags.quest-adventure-game-adventure-game-adventure-game-adventure-game.slotIndex", freeIndex);
       await this.actor.createEmbeddedDocuments("Item", [itemData]);
     }
   }
@@ -213,7 +213,7 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
         }))
       : [];
 
-    const content = await foundry.applications.handlebars.renderTemplate("systems/quest/templates/chat/ability-card.hbs", {
+    const content = await foundry.applications.handlebars.renderTemplate("systems/quest-adventure-game/templates/chat/ability-card.hbs", {
       name: item.name,
       renderedDescription: renderAbilityDescription(item.system.description, { includeApBadge: false }),
       tierList
@@ -276,8 +276,8 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
       const slots = [];
       for (let i = 0; i < slotCount; i++) {
         const found = gearItems.find(
-          it => (it.getFlag("quest", "containerId") ?? "main") === containerId &&
-                it.getFlag("quest", "slotIndex") === i
+          it => (it.getFlag("quest-adventure-game", "containerId") ?? "main") === containerId &&
+                it.getFlag("quest-adventure-game", "slotIndex") === i
         );
         if (found) {
           slots.push({
@@ -325,7 +325,7 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
     };
 
     for (const tab of Object.values(tabs)) {
-      const activeTab = game.user.getFlag("quest", "activeTabs")?.[this.actor.id] ?? "description";
+      const activeTab = game.user.getFlag("quest-adventure-game", "activeTabs")?.[this.actor.id] ?? "description";
       tab.active = activeTab === tab.id;
       tab.cssClass = tab.active ? "active" : "";
     }
@@ -351,9 +351,9 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
 
   static async _onSelectTab(event, target) {
     const tab = target.dataset.tab;
-    const activeTabs = foundry.utils.deepClone(game.user.getFlag("quest", "activeTabs") ?? {});
+    const activeTabs = foundry.utils.deepClone(game.user.getFlag("quest-adventure-game", "activeTabs") ?? {});
     activeTabs[this.actor.id] = tab;
-    await game.user.setFlag("quest", "activeTabs", activeTabs);
+    await game.user.setFlag("quest-adventure-game", "activeTabs", activeTabs);
     this.render();
   }
 
@@ -433,7 +433,7 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
       : "No Match";
     const text = matchedTier ? matchedTier.text : "";
 
-    const content = await foundry.applications.handlebars.renderTemplate("systems/quest/templates/chat/roll-card.hbs", {
+    const content = await foundry.applications.handlebars.renderTemplate("systems/quest-adventure-game/templates/chat/roll-card.hbs", {
       total,
       tier: { label, text }
     });
@@ -453,8 +453,8 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
     const gearItems = this.actor.items.filter(i => i.type === "item");
     const occupied = new Set(
       gearItems
-        .filter(it => (it.getFlag("quest", "containerId") ?? "main") === containerId)
-        .map(it => it.getFlag("quest", "slotIndex"))
+        .filter(it => (it.getFlag("quest-adventure-game", "containerId") ?? "main") === containerId)
+        .map(it => it.getFlag("quest-adventure-game", "slotIndex"))
     );
 
     let freeIndex = -1;
@@ -473,8 +473,8 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
     const created = await this.actor.createEmbeddedDocuments("Item", [
       { name: "New Item", type: "item" }
     ]);
-    await created[0].setFlag("quest", "containerId", containerId);
-    await created[0].setFlag("quest", "slotIndex", freeIndex);
+    await created[0].setFlag("quest-adventure-game", "containerId", containerId);
+    await created[0].setFlag("quest-adventure-game", "slotIndex", freeIndex);
   }
 
   static async _onAddContainer(event, target) {
@@ -491,7 +491,7 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
     const containerId = target.dataset.containerId;
 
     const toDelete = this.actor.items
-      .filter(i => i.type === "item" && i.getFlag("quest", "containerId") === containerId)
+      .filter(i => i.type === "item" && i.getFlag("quest-adventure-game", "containerId") === containerId)
       .map(i => i.id);
 
     if (toDelete.length > 0) {
@@ -533,7 +533,7 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
       : "No Match";
     const text = matchedTier ? matchedTier.text : "";
 
-    const content = await foundry.applications.handlebars.renderTemplate("systems/quest/templates/chat/roll-card.hbs", {
+    const content = await foundry.applications.handlebars.renderTemplate("systems/quest-adventure-game/templates/chat/roll-card.hbs", {
       total,
       tier: { label, text }
     });

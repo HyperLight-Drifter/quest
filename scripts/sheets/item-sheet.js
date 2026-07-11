@@ -2,7 +2,7 @@ export default class QuestItemSheet extends foundry.applications.api.HandlebarsA
   foundry.applications.sheets.ItemSheetV2
 ) {
   static DEFAULT_OPTIONS = {
-    classes: ["quest", "sheet", "item", "gear", "themed", "theme-light"],
+    classes: ["quest-adventure-game", "sheet", "item", "gear", "themed", "theme-light"],
     position: { width: 500, height: 600 },
     window: { resizable: true },
     actions: {
@@ -19,7 +19,7 @@ export default class QuestItemSheet extends foundry.applications.api.HandlebarsA
 
   static PARTS = {
     body: {
-      template: "systems/quest/templates/item/item-sheet.hbs",
+      template: "systems/quest-adventure-game/templates/item/item-sheet.hbs",
       scrollable: [""]
     }
   };

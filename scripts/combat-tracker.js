@@ -30,20 +30,20 @@ Hooks.on("renderCombatTracker", (app, html) => {
     row.querySelector('[data-action="pingCombatant"]')?.remove();
 
     // Grey out a combatant who's taken their turn
-    if (combatant.getFlag("quest", "turnTaken")) {
+    if (combatant.getFlag("quest-adventure-game", "turnTaken")) {
       row.classList.add("quest-turn-taken");
     }
 
     row.addEventListener("click", async (event) => {
       if (event.target.closest("button, input, a")) return;
-      await combatant.setFlag("quest", "turnTaken", true);
+      await combatant.setFlag("quest-adventure-game", "turnTaken", true);
     });
 
     row.addEventListener("contextmenu", async (event) => {
       event.preventDefault();
       event.stopPropagation();
       if (event.target.closest("button, input, a")) return;
-      await combatant.setFlag("quest", "turnTaken", false);
+      await combatant.setFlag("quest-adventure-game", "turnTaken", false);
     });
 
     // Inject HP / AP / Armor tracking
@@ -101,7 +101,7 @@ Hooks.on("renderCombatTracker", (app, html) => {
       nameDiv?.appendChild(resourceBlock);
     }
 
-    const group = combatant.getFlag("quest", "group")
+    const group = combatant.getFlag("quest-adventure-game", "group")
       ?? (combatant.actor?.type === "npc" ? "npc" : "character");
 
     row.setAttribute("draggable", "true");
@@ -131,7 +131,7 @@ Hooks.on("renderCombatTracker", (app, html) => {
       if (!data?.questCombatantId) return;
       const dropped = combat.combatants.get(data.questCombatantId);
       if (!dropped) return;
-      await dropped.setFlag("quest", "group", groupKey);
+      await dropped.setFlag("quest-adventure-game", "group", groupKey);
     });
   }
 

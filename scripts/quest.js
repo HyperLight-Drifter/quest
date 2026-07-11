@@ -15,7 +15,7 @@ Hooks.once("init", () => {
 
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     Actor,
-    "quest",
+    "quest-adventure-game",
     QuestCharacterSheet,
     {
       types: ["character"],
@@ -39,7 +39,7 @@ Hooks.once("init", () => {
 
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     Actor,
-    "quest",
+    "quest-adventure-game",
     QuestNpcSheet,
     {
       types: ["npc"],
@@ -52,7 +52,7 @@ Hooks.once("init", () => {
 
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     Item,
-    "quest",
+    "quest-adventure-game",
     QuestAbilitySheet,
     {
       types: ["ability"],
@@ -65,7 +65,7 @@ Hooks.once("init", () => {
 
   foundry.applications.apps.DocumentSheetConfig.registerSheet(
     Item,
-    "quest",
+    "quest-adventure-game",
     QuestItemSheet,
     {
       types: ["item"],

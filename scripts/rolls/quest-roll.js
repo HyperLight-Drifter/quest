@@ -43,7 +43,7 @@ export async function rollTieredD20(actor) {
   const tier = getRollTier(total);
 
   const content = await foundry.applications.handlebars.renderTemplate(
-    "systems/quest/templates/chat/roll-card.hbs",
+    "systems/quest-adventure-game/templates/chat/roll-card.hbs",
     { total, tier }
   );
 

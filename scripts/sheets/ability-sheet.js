@@ -4,7 +4,7 @@ export default class QuestAbilitySheet extends foundry.applications.api.Handleba
   foundry.applications.sheets.ItemSheetV2
 ) {
   static DEFAULT_OPTIONS = {
-    classes: ["quest", "sheet", "item", "ability", "themed", "theme-light"],
+    classes: ["quest-adventure-game", "sheet", "item", "ability", "themed", "theme-light"],
     position: { width: 500, height: 600 },
     window: { resizable: true },
     actions: {
@@ -21,7 +21,7 @@ export default class QuestAbilitySheet extends foundry.applications.api.Handleba
 
   static PARTS = {
     body: {
-      template: "systems/quest/templates/item/ability-sheet.hbs",
+      template: "systems/quest-adventure-game/templates/item/ability-sheet.hbs",
       scrollable: [""]
     }
   };

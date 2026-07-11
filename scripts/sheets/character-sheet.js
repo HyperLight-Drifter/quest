@@ -10,7 +10,7 @@ export default class QuestCharacterSheet extends foundry.applications.api.Handle
 ) {
   static DEFAULT_OPTIONS = {
     tag: "form",
-    classes: ["quest", "sheet", "actor", "character", "themed", "theme-light"],
+    classes: ["quest-adventure-game", "sheet", "actor", "character", "themed", "theme-light"],
     position: {
       width: 600,
       height: 700
@@ -44,7 +44,7 @@ export default class QuestCharacterSheet extends foundry.applications.api.Handle
 
   static PARTS = {
     header: {
-      template: "systems/quest/templates/actor/character-sheet.hbs",
+      template: "systems/quest-adventure-game/templates/actor/character-sheet.hbs",
       scrollable: [".sheet-body"]
     }
   };
@@ -169,7 +169,7 @@ _initItemDragStart() {
     if (item.type === "ability") {
       const sourceUuid = item.uuid;
       const alreadyExists = this.actor.items.some(
-        i => i.type === "ability" && i.getFlag("quest", "sourceUuid") === sourceUuid
+        i => i.type === "ability" && i.getFlag("quest-adventure-game", "sourceUuid") === sourceUuid
       );
       if (alreadyExists) {
         ui.notifications.warn("This ability is already on the sheet.");
@@ -177,7 +177,7 @@ _initItemDragStart() {
       }
 
       const itemData = item.toObject();
-      foundry.utils.setProperty(itemData, "flags.quest.sourceUuid", sourceUuid);
+      foundry.utils.setProperty(itemData, "flags.quest-adventure-game-adventure-game-adventure-game-adventure-game.sourceUuid", sourceUuid);
       await this.actor.createEmbeddedDocuments("Item", [itemData]);
       return;
     }
@@ -193,8 +193,8 @@ _initItemDragStart() {
       const gearItems = this.actor.items.filter(i => i.type === "item");
       const occupied = new Set(
         gearItems
-          .filter(it => (it.getFlag("quest", "containerId") ?? "main") === containerId)
-          .map(it => it.getFlag("quest", "slotIndex"))
+          .filter(it => (it.getFlag("quest-adventure-game", "containerId") ?? "main") === containerId)
+          .map(it => it.getFlag("quest-adventure-game", "slotIndex"))
       );
 
       let freeIndex = -1;
@@ -211,8 +211,8 @@ _initItemDragStart() {
       }
 
       const itemData = item.toObject();
-      foundry.utils.setProperty(itemData, "flags.quest.containerId", containerId);
-      foundry.utils.setProperty(itemData, "flags.quest.slotIndex", freeIndex);
+      foundry.utils.setProperty(itemData, "flags.quest-adventure-game-adventure-game-adventure-game-adventure-game.containerId", containerId);
+      foundry.utils.setProperty(itemData, "flags.quest-adventure-game-adventure-game-adventure-game-adventure-game.slotIndex", freeIndex);
       await this.actor.createEmbeddedDocuments("Item", [itemData]);
     }
   }
@@ -228,7 +228,7 @@ async _postAbilityToChat(itemId) {
     }))
   : [];
 
-  const content = await foundry.applications.handlebars.renderTemplate("systems/quest/templates/chat/ability-card.hbs", {
+  const content = await foundry.applications.handlebars.renderTemplate("systems/quest-adventure-game/templates/chat/ability-card.hbs", {
     name: item.name,
     renderedDescription: renderAbilityDescription(item.system.description),
     tierList
@@ -299,8 +299,8 @@ const pathGroups = {};
     const slots = [];
     for (let i = 0; i < slotCount; i++) {
       const found = gearItems.find(
-        it => (it.getFlag("quest", "containerId") ?? "main") === containerId &&
-              it.getFlag("quest", "slotIndex") === i
+        it => (it.getFlag("quest-adventure-game", "containerId") ?? "main") === containerId &&
+              it.getFlag("quest-adventure-game", "slotIndex") === i
       );
       if (found) {
         slots.push({
@@ -349,7 +349,7 @@ const pathGroups = {};
     };
 
     for (const tab of Object.values(tabs)) {
-      const activeTab = game.user.getFlag("quest", "activeTabs")?.[this.actor.id] ?? "profile";
+      const activeTab = game.user.getFlag("quest-adventure-game", "activeTabs")?.[this.actor.id] ?? "profile";
       tab.active = activeTab === tab.id;
       tab.cssClass = tab.active ? "active" : "";
     }
@@ -375,9 +375,9 @@ const pathGroups = {};
 
   static async _onSelectTab(event, target) {
     const tab = target.dataset.tab;
-    const activeTabs = foundry.utils.deepClone(game.user.getFlag("quest", "activeTabs") ?? {});
+    const activeTabs = foundry.utils.deepClone(game.user.getFlag("quest-adventure-game", "activeTabs") ?? {});
     activeTabs[this.actor.id] = tab;
-    await game.user.setFlag("quest", "activeTabs", activeTabs);
+    await game.user.setFlag("quest-adventure-game", "activeTabs", activeTabs);
     this.render();
   }
 
@@ -457,7 +457,7 @@ const pathGroups = {};
       : "No Match";
     const text = matchedTier ? matchedTier.text : "";
 
-    const content = await foundry.applications.handlebars.renderTemplate("systems/quest/templates/chat/roll-card.hbs", {
+    const content = await foundry.applications.handlebars.renderTemplate("systems/quest-adventure-game/templates/chat/roll-card.hbs", {
       total,
       tier: { label, text }
     });
@@ -477,8 +477,8 @@ const pathGroups = {};
     const gearItems = this.actor.items.filter(i => i.type === "item");
     const occupied = new Set(
       gearItems
-        .filter(it => (it.getFlag("quest", "containerId") ?? "main") === containerId)
-        .map(it => it.getFlag("quest", "slotIndex"))
+        .filter(it => (it.getFlag("quest-adventure-game", "containerId") ?? "main") === containerId)
+        .map(it => it.getFlag("quest-adventure-game", "slotIndex"))
     );
 
     let freeIndex = -1;
@@ -497,8 +497,8 @@ const pathGroups = {};
     const created = await this.actor.createEmbeddedDocuments("Item", [
       { name: "New Item", type: "item" }
     ]);
-    await created[0].setFlag("quest", "containerId", containerId);
-    await created[0].setFlag("quest", "slotIndex", freeIndex);
+    await created[0].setFlag("quest-adventure-game", "containerId", containerId);
+    await created[0].setFlag("quest-adventure-game", "slotIndex", freeIndex);
   }
 
   static async _onAddContainer(event, target) {
@@ -515,7 +515,7 @@ const pathGroups = {};
     const containerId = target.dataset.containerId;
 
     const toDelete = this.actor.items
-      .filter(i => i.type === "item" && i.getFlag("quest", "containerId") === containerId)
+      .filter(i => i.type === "item" && i.getFlag("quest-adventure-game", "containerId") === containerId)
       .map(i => i.id);
 
     if (toDelete.length > 0) {
@@ -557,7 +557,7 @@ const pathGroups = {};
       : "No Match";
     const text = matchedTier ? matchedTier.text : "";
 
-    const content = await foundry.applications.handlebars.renderTemplate("systems/quest/templates/chat/roll-card.hbs", {
+    const content = await foundry.applications.handlebars.renderTemplate("systems/quest-adventure-game/templates/chat/roll-card.hbs", {
       total,
       tier: { label, text }
     });
