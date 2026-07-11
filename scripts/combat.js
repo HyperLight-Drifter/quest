@@ -11,14 +11,21 @@ export class QuestCombat extends Combat {
 }
 
 Hooks.on("updateCombat", async (combat, changed) => {
-  if (!game.user.isGM) return;
-  if (!("round" in changed)) return;
+  console.log("QUEST | updateCombat fired", { changed, isGM: game.user.isGM });
 
-  const updates = combat.combatants
-    .filter(c => c.getFlag("quest-adventure-game", "turnTaken"))
-    .map(c => ({ _id: c.id, "flags.quest-adventure-game-adventure-game-adventure-game-adventure-game.turnTaken": false }));
+  if (!game.user.isGM) return;
+  if (!("round" in changed)) {
+    console.log("QUEST | no round change in this update, skipping");
+    return;
+  }
+
+  const flagged = combat.combatants.filter(c => c.getFlag("quest-adventure-game", "turnTaken"));
+  console.log("QUEST | combatants with turnTaken flag:", flagged.map(c => c.name));
+
+  const updates = flagged.map(c => ({ _id: c.id, "flags.quest-adventure-game.turnTaken": false }));
 
   if (updates.length) {
     await combat.updateEmbeddedDocuments("Combatant", updates);
+    console.log("QUEST | cleared turnTaken on", updates.length, "combatant(s)");
   }
 });
