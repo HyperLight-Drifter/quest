@@ -162,7 +162,7 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
       }
 
       const itemData = item.toObject();
-      foundry.utils.setProperty(itemData, "flags.quest-adventure-game-adventure-game-adventure-game-adventure-game.sourceUuid", sourceUuid);
+      foundry.utils.setProperty(itemData, "flags.quest-adventure-game.sourceUuid", sourceUuid);
       await this.actor.createEmbeddedDocuments("Item", [itemData]);
       return;
     }
@@ -196,8 +196,8 @@ export default class QuestNpcSheet extends foundry.applications.api.HandlebarsAp
       }
 
       const itemData = item.toObject();
-      foundry.utils.setProperty(itemData, "flags.quest-adventure-game-adventure-game-adventure-game-adventure-game.containerId", containerId);
-      foundry.utils.setProperty(itemData, "flags.quest-adventure-game-adventure-game-adventure-game-adventure-game.slotIndex", freeIndex);
+      foundry.utils.setProperty(itemData, "flags.quest-adventure-game.containerId", containerId);
+      foundry.utils.setProperty(itemData, "flags.quest-adventure-game.slotIndex", freeIndex);
       await this.actor.createEmbeddedDocuments("Item", [itemData]);
     }
   }
